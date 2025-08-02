@@ -2,7 +2,7 @@ const express = require('express');
 const router = require('./routes/userRoute');
 const app = express()
 const bodyParser = require('body-parser')
-const logger = require('./middleware/logger')
+const logger = require('./utils/logger')
 
 const port = 5000;
 
