@@ -11,7 +11,6 @@ const findUsers = async (req, res) => {
             select: {
                 id: true,
                 email: true,
-                password: true,
                 name: true,
                 jobs: true,
                 createdAt: true,
@@ -58,7 +57,6 @@ const createUser = async (req, res) => {
             data: {
                 email: req.body.email,
                 name: req.body.name,
-                jobs: req.body.jobs,
                 password: hashedPassword,
             },
         });
@@ -66,9 +64,10 @@ const createUser = async (req, res) => {
         res.status(201).send({
             success: true,
             message: "User Created Successfully",
-            data: userData,
+            data: user,
         })
     } catch (error) {
+        console.error("Error saat create user:", error);
         res.status(500).send({
             success: false,
             message: "Internal server error",
