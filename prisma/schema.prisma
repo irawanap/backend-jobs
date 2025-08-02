@@ -25,17 +25,45 @@ model User {
 }
 
 model Job {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  company     String
-  position    String
-  status      String   @default("applied")
-  appliedDate DateTime @default(now()) @map("applied_date")
-  notes       String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id            Int          @id @default(autoincrement())
+  userId        Int          @map("user_id")
+  company       String
+  position      String
+  status        JobStatus    @default(applied)
+  appliedDate   DateTime     @default(now()) @map("applied_date")
+  offerDate     DateTime?    @map("offer_date")
+  jobType       String?      
+  source        String?      
+  resumeUrl     String?      
+  notes         String?
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interviews    Interview[]
 
   @@map("jobs")
+}
+
+model Interview {
+  id          Int       @id @default(autoincrement())
+  jobId       Int       @map("job_id")
+  type        String    
+  date        DateTime  
+  location    String?   
+  notes       String?   
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@map("interviews")
+}
+
+enum JobStatus {
+  applied
+  interview
+  offer
+  rejected
+  accepted
 }
