@@ -1,38 +1,26 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma  = new PrismaClient();
 const { validationResult } = require("express-validator");
-const bcrypt = require('bcryptjs');
+const userService = require('../services/user.service');
+
 
 //function get all user
-const findUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
         //get all users from database
-        const users = await prisma.user.findMany({
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                jobs: true,
-                createdAt: true,
-            },
-            orderBy: {
-                createdAt: "desc",
-            },
-        });
-
+        const users = await userService.getAllUsers();
         //send response
-        res.status(200).send({
+        res.status(200).json({
             success: true,
             message: "Get All Users Successfully",
             data: users
         });
     } catch (error) {
-        res.status(500).send({
+        res.status(500).json({
             success: false,
             message: "Internal server error",
         });
     }
 };
+
 
 //function create user
 const createUser = async (req, res) => {
@@ -50,15 +38,12 @@ const createUser = async (req, res) => {
 
     try {
         // insert data
-
-        const hashedPassword = await bcrypt.hash(req.body.password, 6);
-
-        const user = await prisma.user.create({
-            data: {
-                email: req.body.email,
-                name: req.body.name,
-                password: hashedPassword,
-            },
+        const { name, email, password } = req.body;
+        
+        const user = await userService.createUser({
+            name, 
+            email,
+            password
         });
 
         res.status(201).send({
@@ -76,6 +61,6 @@ const createUser = async (req, res) => {
 };
 
 module.exports = {
-    findUsers,
+    getAllUsers,
     createUser,
 }
