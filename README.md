@@ -49,7 +49,7 @@
 
 Project ini telah dideploy menggunakan **Railway**.
 
-> 🟢 Base URL: `https://backend-jobs.railway.internal`
+> 🟢 Base URL: `backend-jobs-production.up.railway.app`
 
 ### Contoh Endpoint:
 | Method | Endpoint | Deskripsi |
