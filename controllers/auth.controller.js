@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
         });
 
         res.status(201).json({
-            status: true,
+            success: true,
             message: "User registered successfully.",
             data: { 
                 id: newUser.id,
@@ -36,7 +36,7 @@ const registerUser = async (req, res) => {
     } catch (error) {
         console.error("Error during registration:", error)
         res.status(500).json({
-            status: false,
+            success: false,
             message: "Internal server error."
         });
     }
@@ -71,8 +71,14 @@ const loginUser = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: "Login successfull.",
-            token
+            message: "Login successful.",
+            token,
+            data: {
+                // <-- Ditambahkan: Mengembalikan data pengguna saat login
+                id: user.id,
+                name: user.name,
+                email: user.email,
+            },
         })
     } catch (error) {
         console.error("Error during login:", error);
