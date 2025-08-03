@@ -44,3 +44,22 @@
 ├── .env
 ├── server.js
 └── README.md
+
+## 🌐 API Endpoint
+
+Project ini telah dideploy menggunakan **Railway**.
+
+> 🟢 Base URL: `https://backend-jobs.railway.internal`
+
+### Contoh Endpoint:
+| Method | Endpoint | Deskripsi |
+|--------|----------|-----------|
+| `GET` | `/` | Tes koneksi server |
+| `POST` | `/api/auth/register` | Register user baru |
+| `POST` | `/api/auth/login` | Login user |
+| `GET` | `/api/users` | Dapatkan semua data user |
+| `POST` | `/api/jobs/create` | Tambahkan job baru |
+| `GET` | `/api/jobs/:id` | Dapatkan detail job berdasarkan ID |
+| `GET` | `/api/jobs` | Dapatkan semua job |
+
+Kamu bisa menggunakan tools seperti **Postman** atau **cURL** untuk menguji endpoint-endpoint tersebut.
